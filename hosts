@@ -1,0 +1,15 @@
+[qa]
+172.31.26.170 ansible_ssh_user=root
+
+[staging]
+172.31.26.170 ansible_ssh_user=root
+
+[dev]
+172.31.26.170 ansible_ssh_user=root 
+
+[prod]
+172.31.26.170 ansible_ssh_user=root
+
+
+[localhost]
+172.31.26.169 ansible_ssh_user=root

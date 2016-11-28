@@ -1,0 +1,6 @@
+---
+- hosts: all
+  remote_user: centos
+  sudo: yes
+  roles:
+    - httpd		

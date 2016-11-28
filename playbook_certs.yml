@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  tasks:  
+
+
+  - name: "Clone repo"
+    git: repo=https://github.com/prithvi84/certs.git dest=/var/tmp/mycerts
+
+######## do your copy certs activity for remote machine ######
+- hosts: dev
+  tasks:
+  - name: "Copy certs to remote servers" 
+    copy: src={{ item.src }} dest={{ item.dest }}
+    with_items:
+      - {src: "/var/tmp/mycerts/dev/test.key", dest: "/var/tmp/test.key"}
+      - {src: "/var/tmp/mycerts/dev/test.crt", dest: "/var/tmp/test.crt"}
+      - {src: "/var/tmp/mycerts/dev/intermediate.crt", dest: "/var/tmp/intermediate.crt"}

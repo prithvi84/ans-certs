@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  tasks:  
+  - name: "Clone repo"
+    git: repo=https://github.com/prithvi84/certs.git dest=/var/tmp/mycerts update=yes
+    register: result
+
+  - name: "Repo got updated"
+    shell: "echo 'updated' >> /var/tmp/cert-update" 	
+    when: result.changed 
+
+
+######## do your copy certs activity for remote machine ######
+- hosts: dev
+  tasks:
+  - name: "Copy repo update file"
+    copy: src=/var/tmp/cert-update dest=/var/tmp/cert-update
+    register: success
+
+  - name: "Copy certs to remote servers" 
+    copy: src={{ item.src }} dest={{ item.dest }}
+    with_items:
+      - {src: "/var/tmp/mycerts/dev/test.key", dest: "/var/tmp/test.key"}
+      - {src: "/var/tmp/mycerts/dev/test.crt", dest: "/var/tmp/test.crt"}
+      - {src: "/var/tmp/mycerts/dev/intermediate.crt", dest: "/var/tmp/intermediate.crt"}
+    when: success.changed
+    

@@ -1,0 +1,3 @@
+---
+  - name: install httpd server for {{groupname}}
+    action: yum name=httpd state=present 
