@@ -10,7 +10,7 @@
     when: result.changed 
 
 
-######## do your copy certs activity for remote machine ######
+########  copy certs activity for remote machine ######
 - hosts: dev
   tasks:
   - name: "Copy repo update file"
